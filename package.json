@@ -1,0 +1,45 @@
+{
+  "name": "durations",
+  "description": "Duration tracking and formattng for node.js",
+  "keywords": [
+    "Stopwatch",
+    "Monitoring",
+    "Performance",
+    "Duration"
+  ],
+  "version": "1.0.0",
+  "author": "Joel Edwards (https://github.com/joeledwards)",
+  "contributors": [
+    "Joel Edwards <joeledwards@gmail.com> (https://github.com/joeledwards)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joeledwards/node-durations.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/joeledwards/node-durations/blob/master/LICENSE"
+    }
+  ],
+  "main": "./lib/index",
+  "directories": {
+    "lib": "./lib"
+  },
+  "dependencies" : {
+    "q": ">=1.2 <2"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.20.1",
+    "timeunit": "~1.1.1"
+  },
+  "scripts": {
+    "prepublish": "cake build",
+    "build": "cake build",
+    "test": "cake test"
+  },
+  "engines": {
+    "node": ">=0.8.1"
+  }
+}
