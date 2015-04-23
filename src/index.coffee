@@ -8,8 +8,7 @@ NANOS_PER_HOUR = NANOS_PER_MINUTE * 60
 NANOS_PER_DAY = NANOS_PER_HOUR * 24
 
 class Duration
-  constructor: (nanoseconds) ->
-    @duration = nanoseconds
+  constructor: (@duration) ->
 
   nanos: ->
     return @duration
@@ -79,12 +78,12 @@ class Stopwatch
   reset: ->
     @accumulator = 0
     @lastTime = null
-    return @
+    return this
 
   # Start a stopped stopwatch.  If `stop()` has not been called, this has no effect.
   start: ->
     if !@lastTime? then @lastTime = process.hrtime()
-    return @
+    return this
 
   # Stop a stopwatch.
   stop: ->
@@ -92,11 +91,17 @@ class Stopwatch
       diff = process.hrtime(@lastTime)
       @accumulator += hrtimeDiffToNanos diff
       @lastTime = null
-    return @
+    return this
 
   # Get the elapsed Duration
   duration: ->
-    return new Duration(@elapsedNanos)
+    return newDuration(@elapsedNanos())
+
+  format: ->
+    return @duration().format()
+
+  toString: ->
+    return @format()
    
   elapsedNanos: ->
     if @lastTime?
@@ -118,18 +123,22 @@ timeOperationAsync = (operation) ->
   deferred = Q.defer()
   watch = newStopwatch().start()
 
-  callback = ->
+  next = ->
     duration = watch.stop().duration()
     deferred.resolve(duration)
 
-  operation(callback)
+  operation(next)
 
   return deferred.promise
 
 newStopwatch = ->
   return new Stopwatch()
 
+newDuration = (nanoseconds) ->
+  return new Duration(nanoseconds)
+
 module.exports =
+  duration: newDuration
   stopwatch : newStopwatch
   time : timeOperation
   timeAsync : timeOperationAsync
