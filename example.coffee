@@ -1,3 +1,12 @@
+#!/usr/bin/env coffee
+
+isNode = if process?.hrtime()? then true else false
+
+console.log "hrtime output is:", process.hrtime()
+console.log "time is:", new Date().getTime()
+
+console.log "Is Node.js: #{isNode}"
+
 durations = require './src/index.coffee'
 
 watch = durations.stopwatch()
