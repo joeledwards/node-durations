@@ -7,6 +7,8 @@ NANOS_PER_MINUTE = NANOS_PER_SECOND * 60
 NANOS_PER_HOUR = NANOS_PER_MINUTE * 60
 NANOS_PER_DAY = NANOS_PER_HOUR * 24
 
+isNode = if process?.hrtime()? then true else false
+
 class Duration
   constructor: (@duration) ->
 
@@ -67,7 +69,7 @@ class Stopwatch
       @lastTime = null
     this
 
-  duration: -> newDuration(@elapsedNanos())
+  duration: -> new Duration(@elapsedNanos())
   format: -> @duration().format()
   toString: -> @format()
    
