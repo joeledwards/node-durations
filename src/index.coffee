@@ -1,4 +1,5 @@
 Q = require 'q'
+hrtime = require 'browser-process-hrtime'
 
 NANOS_PER_MICRO = 1000
 NANOS_PER_MILLI = NANOS_PER_MICRO * 1000
@@ -6,8 +7,6 @@ NANOS_PER_SECOND = NANOS_PER_MILLI * 1000
 NANOS_PER_MINUTE = NANOS_PER_SECOND * 60
 NANOS_PER_HOUR = NANOS_PER_MINUTE * 60
 NANOS_PER_DAY = NANOS_PER_HOUR * 24
-
-isNode = if process?.hrtime()? then true else false
 
 class Duration
   constructor: (@duration) ->
@@ -59,13 +58,13 @@ class Stopwatch
   # Start a stopped stopwatch.  If `stop()` has not been called, this has no effect.
   start: ->
     if !@lastTime?
-      @lastTime = process.hrtime()
+      @lastTime = hrtime()
     this
 
   # Stop a stopwatch.
   stop: ->
     if @lastTime?
-      @accumulator += hrtimeDiffToNanos(process.hrtime(@lastTime))
+      @accumulator += hrtimeDiffToNanos(hrtime(@lastTime))
       @lastTime = null
     this
 
@@ -75,7 +74,7 @@ class Stopwatch
    
   elapsedNanos: ->
     if @lastTime?
-      @accumulator + hrtimeDiffToNanos(process.hrtime(@lastTime))
+      @accumulator + hrtimeDiffToNanos(hrtime(@lastTime))
     else
       @accumulator
 

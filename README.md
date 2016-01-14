@@ -2,8 +2,8 @@
 Stopwatch
 ===========
 
-A nanosecond granularity stopwatch with chainable control methods,
-and formatting built in.
+A nanosecond granularity (on Node.js) stopwatch with chainable control methods,
+and built-in formatting.
 
 Timer
 =====
@@ -48,5 +48,9 @@ console.log "Duration is", durations.duration(nanoseconds).format()
 Compatibilty
 ============
 
-The `durations` module uses `process.hrtime()`, therefore it will work only in node.js, not in browsers.
+The `durations` module uses the `browser-process-hrtime` module to support 
+both the Node.js and browsers. When using Node.js, the nanosecond-granulatiry 
+`process.hrtime()` function is used. The best substitution is selected when
+in the browser such that consistency is maintained even if time granularity
+cannot be.
 
