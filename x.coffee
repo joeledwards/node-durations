@@ -1,33 +1,10 @@
+durations = require './src/index'
 
-Stopwatch
-===========
+##
+## Example for README.md (better really work)
+##
 
-A nanosecond granularity (on Node.js) stopwatch with chainable control methods,
-and built-in formatting.
-
-Timer
-=====
-
-Times the execution of a function, and returns the duration.
-
-Duration
-========
-
-Represents a duration with nanosecond granularity, and provides methods
-for converting to other granularities, and formatting the duration.
-
-Installation
-============
-
-```bash
-npm install --save durations
-```
-
-Usage
-=====
-
-```coffeescript
-durations = require 'durations'
+#durations = require 'durations'
 
 nanoseconds = 987654321
 console.log "Duration is", durations.duration(nanoseconds).format()
@@ -57,15 +34,4 @@ someOtherFunction = (next) ->
 
 durations.timeAsync(someOtherFunction).then (duration) ->
   console.log "Took #{duration} to do something else."
-```
-      
-
-Compatibilty
-============
-
-The `durations` module uses the `browser-process-hrtime` module in order to
-support both Node.js and browsers. When using Node.js, the nanosecond-granulatiry 
-`process.hrtime()` function is used. The best substitution is selected when
-in the browser such that consistency is maintained even if time granularity
-cannot be.
 

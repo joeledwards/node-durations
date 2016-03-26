@@ -82,7 +82,7 @@ class Stopwatch
 timeOperation = (operation) ->
   watch = newStopwatch().start()
   operation()
-  return watch.stop().duration()
+  watch.stop().duration()
 
 # Return a promise which will be resolved once the supplied 
 # operation has been run, and called the completion function.
@@ -97,13 +97,13 @@ timeOperationAsync = (operation) ->
 
   operation(next)
 
-  return deferred.promise
+  deferred.promise
 
 newStopwatch = ->
-  return new Stopwatch()
+  new Stopwatch()
 
 newDuration = (nanoseconds) ->
-  return new Duration(nanoseconds)
+  new Duration(nanoseconds)
 
 module.exports =
   duration: newDuration
