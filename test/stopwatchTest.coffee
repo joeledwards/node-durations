@@ -39,9 +39,21 @@ describe "stopwatch", ->
             catch err
                 done err
 
+    it "should format days and hours correctly", (done) ->
+        watch = durations.stopwatch().start()
+        try
+            assert.equal durations.duration(172800000000000).format(), "2 d, 0 h"
+            assert.equal durations.duration(172799000000000).format(), "1 d, 23 h"
+            assert.equal durations.duration(90000000000000).format(), "1 d, 1 h"
+            assert.equal durations.duration(86400000000000).format(), "1 d, 0 h"
+            done()
+        catch err
+            done err
+
     it "should format hours and minutes correctly", (done) ->
         watch = durations.stopwatch().start()
         try
+            assert.equal durations.duration(86399999999999).format(), "23 h, 59 min"
             assert.equal durations.duration(7200000000000).format(), "2 h, 0 min"
             assert.equal durations.duration(7199000000000).format(), "1 h, 59 min"
             assert.equal durations.duration(3660000000000).format(), "1 h, 1 min"

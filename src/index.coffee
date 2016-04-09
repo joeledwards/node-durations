@@ -21,6 +21,7 @@ class Duration
 
   format: ->
     switch
+      when @duration >= NANOS_PER_DAY then Math.floor(@hours() / 24) + " d, " + Math.floor(@hours() % 24) + " h"
       when @duration >= NANOS_PER_HOUR then Math.floor(@minutes() / 60) + " h, " + Math.floor(@minutes() % 60) + " min"
       when @duration >= NANOS_PER_MINUTE then Math.floor(@seconds() / 60) + " min, " + Math.floor(@seconds() % 60) + " s"
       when @duration >= NANOS_PER_SECOND then Math.floor(@millis() / 1000) + "." + @zPad(Math.floor(@millis() % 1000)) + " s"
