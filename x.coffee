@@ -32,6 +32,6 @@ someOtherFunction = (next) ->
   someFunction()
   next()
 
-durations.timeAsync(someOtherFunction).then (duration) ->
+durations.timeAsync someOtherFunction, (duration) ->
   console.log "Took #{duration} to do something else."
 

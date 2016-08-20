@@ -1,4 +1,3 @@
-Q = require 'q'
 hrtime = require 'browser-process-hrtime'
 
 NANOS_PER_MICRO = 1000
@@ -82,26 +81,25 @@ class Stopwatch
     else
       @accumulator
 
+  isRunning: -> @lastTime?
+
 # Time an operation synchronously, and return the Duration
 timeOperation = (operation) ->
   watch = newStopwatch().start()
   operation()
   watch.stop().duration()
 
-# Return a promise which will be resolved once the supplied 
-# operation has been run, and called the completion function.
-# The resolution of the promise is the Duration.
-timeOperationAsync = (operation) ->
-  deferred = Q.defer()
+# Invoke the supplied callback once the supplied operation
+# has finished, and called the completion function.
+# The argument to the callback is the Duration.
+timeOperationAsync = (operation, callback) ->
   watch = newStopwatch().start()
 
   next = ->
     duration = watch.stop().duration()
-    deferred.resolve(duration)
+    callback(duration)
 
   operation(next)
-
-  deferred.promise
 
 newStopwatch = ->
   new Stopwatch()

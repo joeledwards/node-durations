@@ -27,8 +27,7 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies" : {
-    "q": "^1.4.1",
+  "dependencies": {
     "browser-process-hrtime": "^0.1.2"
   },
   "devDependencies": {
