@@ -1,4 +1,4 @@
-hrtime = require 'browser-process-hrtime'
+hrtime = require './hrtime'
 
 NANOS_PER_MICRO = 1000
 NANOS_PER_MILLI = NANOS_PER_MICRO * 1000

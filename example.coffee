@@ -30,9 +30,9 @@ actionAsync = (next) ->
   num for num in [5000000 .. 10000000]
   next()
 
-durations.timeAsync(actionAsync).then((duration) ->
+durations.timeAsync(actionAsync, ((duration) ->
   console.log "Async timing:", duration.format()
-)
+))
 
 console.log "Sync timing:", durations.time(action).format()
 
