@@ -114,6 +114,10 @@ diffMoments = (momentA, momentB) ->
 module.exports =
   diffMoments: diffMoments
   duration: newDuration
+  nanos: newDuration
+  micros: (d) -> newDuration(d * NANOS_PER_MICRO)
+  millis: (d) -> newDuration(d * NANOS_PER_MILLI)
+  seconds: (d) -> newDuration(d * NANOS_PER_SECOND)
   stopwatch : newStopwatch
   time : timeOperation
   timeAsync : timeOperationAsync
