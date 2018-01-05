@@ -7,7 +7,7 @@
     "Performance",
     "Duration"
   ],
-  "version": "3.1.0",
+  "version": "3.2.1",
   "author": "Joel Edwards (https://github.com/joeledwards)",
   "contributors": [
     "Joel Edwards <joeledwards@gmail.com> (https://github.com/joeledwards)"
@@ -27,11 +27,8 @@
   "directories": {
     "lib": "./lib"
   },
-  "dependencies": {
-    "browser-process-hrtime": "^0.1.2"
-  },
   "devDependencies": {
-    "coffee-script": "^1.10.0",
+    "coffee-script": "^1.12.7",
     "mocha": "^2.3.4",
     "timeunit": "^1.1.1"
   },
