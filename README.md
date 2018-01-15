@@ -27,11 +27,14 @@ The following functions are exported:
 Represents a duration with nanosecond granularity, and provides methods
 for converting to other granularities, and formatting the duration.
 
-```coffeescript
-{duration} = require 'durations'
+```javascript
+const {duration} = require('durations')
 
-nanoseconds = 987654321
-console.log "Duration is", duration(nanoseconds).format()
+const nanoseconds = 987654321
+console.log("Duration is", duration(nanoseconds).format())
+
+// Or, since toString() is an alias to format()
+console.log(`Duration is ${duration(nanoseconds)}`)
 ```
 
 ### Methods
@@ -44,21 +47,27 @@ console.log "Duration is", duration(nanoseconds).format()
 * `hours()` - duration as hours
 * `days()` - duration as days
 
-# Or, since toString() is an alias to format()
-console.log "Duration is #{duration(nanoseconds)}"
-
 ## Stopwatch
 
 A nanosecond granularity (on Node.js) stopwatch with chainable control methods,
 and built-in formatting.
 
-```coffeescript
-{stopwatch} = require 'durations'
-watch = stopwatch()
-watch.stop()  # Pauses the stopwatch. Returns the stopwatch.
-watch.start() # Starts the stopwatch from where it was last stopped. Returns the stopwatch.
-watch.reset() # Reset the stopwatch (duration is set back to zero). Returns the stopwatch.
-duration = watch.duration() # Returns the Duration.
+```javascript
+const {stopwatch} = require('durations')
+const watch = stopwatch()
+
+// Pauses the stopwatch. Returns the stopwatch.
+watch.stop()
+
+// Starts the stopwatch from where it was last stopped. Returns the stopwatch.
+watch.start()
+
+// Reset the stopwatch (duration is set back to zero). Returns the stopwatch.
+watch.reset()
+
+console.log(`${watch.duration().seconds()} seconds have elapsed`)
+// OR
+console.log(`${watch} have elapsed`)
 ```
 
 ### Methods
@@ -72,24 +81,30 @@ duration = watch.duration() # Returns the Duration.
 
 Times the execution of a function, and returns the duration.
 
-```coffeescript
-{time: timeSync, timeAsync} = require 'durations'
+```javascript
+const {time: timeSync, timeAsync} = require('durations')
 
-# Synchronous work
-someFunction = ->
-  count = 0
-  for c in [1 .. 1000000]
-    count += 1
-  console.log "Count is: #{count}"
+// Synchronous work
+const someFunction = () => {
+  let count = 0
 
-console.log "Took #{timeSync(someFunction)} to do something"
+  while (count < 1000000) {
+    count++
+  }
 
-# Asynchronous work
-someOtherFunction = (next) ->
+  console.log(`Count is: ${count}`)
+}
+
+console.log(`Took ${timeSync(someFunction)} to do something`)
+
+// Asynchronous work
+const someOtherFunction = next => {
   someFunction()
   next()
+}
 
-timeAsync someOtherFunction, (duration) ->
-  console.log "Took #{duration} to do something else."
+timeAsync(someOtherFunction, duration => {
+  console.log(`Took ${duration} to do something else.`)
+})
 ```
 
