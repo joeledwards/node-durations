@@ -19,23 +19,13 @@ The following functions are exported:
 * `millis(milliseconds)` - constructs a new Duration
 * `seconds(seconds)` - constructs a new Duration
 * `stopwatch()` - constructs a new Stopwatch (stopped)
-* `time(function)` - times a function
+* `time(function)` - times a function synchronously
 * `timeAsync(function(callback))` - times a function asynchronously
 
 ## Duration
 
 Represents a duration with nanosecond granularity, and provides methods
 for converting to other granularities, and formatting the duration.
-
-```javascript
-const {duration} = require('durations')
-
-const nanoseconds = 987654321
-console.log("Duration is", duration(nanoseconds).format())
-
-// Or, since toString() is an alias to format()
-console.log(`Duration is ${duration(nanoseconds)}`)
-```
 
 ### Methods
 * `format()` - human readable string representing the duration
@@ -47,10 +37,27 @@ console.log(`Duration is ${duration(nanoseconds)}`)
 * `hours()` - duration as hours
 * `days()` - duration as days
 
+```javascript
+const {duration} = require('durations')
+
+const nanoseconds = 987654321
+console.log("Duration is", duration(nanoseconds).format())
+
+// Or, since toString() is an alias to format()
+console.log(`Duration is ${duration(nanoseconds)}`)
+```
+
 ## Stopwatch
 
 A nanosecond granularity (on Node.js) stopwatch with chainable control methods,
 and built-in formatting.
+
+### Stopwatch Methods
+* `start()` - start and return the stopwatch (no-op if already running)
+* `stop()` - stop and return the stopwatch (no-op if not running)
+* `reset()` - reset to zero elapsed time and return the stopwatch (implies stop)
+* `duration()` - fetch the elapsed time as a Duration
+* `isRunning()` -  is the stopwatch running (`true`/`false`)
 
 ```javascript
 const {stopwatch} = require('durations')
@@ -69,13 +76,6 @@ console.log(`${watch.duration().seconds()} seconds have elapsed`)
 // OR
 console.log(`${watch} have elapsed`)
 ```
-
-### Methods
-* `start()` - start the stopwatch (no-op if already running)
-* `stop()` - stop the stopwatch (no-op if not running)
-* `reset()` - reset the stopwatch to zero elapsed time (implies stop)
-* `duration()` - fetch the elapsed time as a Duration
-* `isRunning()` -  is the stopwatch running (`true`/`false`)
 
 ## Timer
 
