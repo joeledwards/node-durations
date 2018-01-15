@@ -1,5 +1,8 @@
 # durations
 
+[![Build Status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
+
 ## Compatibilty
 
 Both Node.js and browsers are supported by `durations`. When using Node.js, the nanosecond-granulatiry `process.hrtime()` function is used. The best substitution is selected when in the browser such that consistency is maintained even if time granularity cannot be.
@@ -108,3 +111,5 @@ timeAsync(someOtherFunction, duration => {
 })
 ```
 
+[travis-url]: https://travis-ci.org/joeledwards/node-durations
+[npm-url]: https://www.npmjs.com/package/durations
