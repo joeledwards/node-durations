@@ -112,4 +112,6 @@ timeAsync(someOtherFunction, duration => {
 ```
 
 [travis-url]: https://travis-ci.org/joeledwards/node-durations
+[travis-image]: https://img.shields.io/travis/joeledwards/node-durations/master.svg
 [npm-url]: https://www.npmjs.com/package/durations
+[npm-image]: https://img.shields.io/npm/v/durations.svg
