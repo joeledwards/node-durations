@@ -1,23 +1,38 @@
 stopwatch = require './stopwatch'
 
-# Time an operation synchronously, and return the Duration
-timeOperation = (operation) ->
+timeOperationSync = (operation) ->
   watch = stopwatch.new().start()
   operation()
   watch.stop().duration()
 
-# Invoke the supplied callback once the supplied operation
-# has finished, and called the completion function.
-# The argument to the callback is the Duration.
 timeOperationAsync = (operation, callback) ->
-  watch = stopwatch.new().start()
+  watch = stopwatch.new()
+  if typeof callback == 'function'
+    next = -> callback watch.stop().duration()
+    watch.start()
+    operation(next)
+    undefined
+  else
+    new Promise (resolve, reject) ->
+      next = (error) ->
+        if error?
+          reject error
+        else
+          resolve watch.stop().duration()
+      watch.start()
+      operation(next)
 
-  next = ->
-    duration = watch.stop().duration()
-    callback(duration)
-
-  operation(next)
+timeOperationPromised = (operation, callback) ->
+  watch = stopwatch.new()
+  if typeof callback == 'function'
+    watch.start()
+    operation().then -> callback(watch.stop().duration())
+    undefined
+  else
+    watch.start()
+    operation().then -> watch.stop().duration()
 
 module.exports =
-  time: timeOperation
+  time: timeOperationSync
   timeAsync: timeOperationAsync
+  timePromised: timeOperationPromised

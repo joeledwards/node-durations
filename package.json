@@ -28,6 +28,7 @@
     "lib": "./lib"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "coffee-script": "^1.12.7",
     "mocha": "^2.3.4",
     "timeunit": "^1.1.1"

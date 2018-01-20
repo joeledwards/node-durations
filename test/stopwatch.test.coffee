@@ -1,4 +1,6 @@
-assert = require 'assert'
+{should, expect} = require('chai')
+should()
+
 timeunit = require 'timeunit'
 {duration, stopwatch} = require '../src/index.coffee'
 
@@ -13,7 +15,7 @@ describe "stopwatch", ->
                 elapsedInMs = end - start
                 measuredInMs = timeunit.nanoseconds.toMillis(watch.duration().nanos())
                 deltaInMs = elapsedInMs - measuredInMs
-                assert(Math.abs(deltaInMs) < 10, "Delta should be less than 10ms, was #{deltaInMs}ms")
+                Math.abs(deltaInMs).should.be.below(10, "Delta should be less than 10ms, was #{deltaInMs}ms")
                 done()
             catch err
                 done err
@@ -23,7 +25,7 @@ describe "stopwatch", ->
 
         timeunit.milliseconds.sleep 100, ->
             try
-                assert.equal watch.duration().nanos(), 0
+                watch.duration().nanos().should.equal(0)
                 done()
             catch err
                 done err
@@ -34,7 +36,7 @@ describe "stopwatch", ->
 
         timeunit.milliseconds.sleep 100, ->
             try
-                assert.equal watch.duration().nanos(), 0
+                watch.duration().nanos().should.equal(0)
                 done()
             catch err
                 done err
@@ -42,10 +44,10 @@ describe "stopwatch", ->
     it "should return matching values from both format and toString", (done) ->
         watch = stopwatch()
         try
-            assert.equal watch.format(), watch.toString()
+            watch.format().should.equal(watch.toString())
             watch.start()
             watch.stop()
-            assert.equal watch.format(), watch.toString()
+            watch.format().should.equal(watch.toString())
             done()
         catch err
             done err
