@@ -24,6 +24,7 @@ The following functions are exported:
 * `stopwatch()` - constructs a new Stopwatch (stopped)
 * `time(function)` - times a function synchronously
 * `timeAsync(function(callback))` - times a function asynchronously
+* `timePromised(function())` - times a promise-returning function
 
 ## Duration
 
@@ -108,6 +109,19 @@ const someOtherFunction = next => {
 
 timeAsync(someOtherFunction, duration => {
   console.log(`Took ${duration} to do something else.`)
+})
+
+// Promised work
+const somePromisedOp = () => {
+  return new Promise((resolve) => {
+    someFunction()
+    resolve()
+  })
+}
+
+timePromised(somePromisedOp)
+.then(duration => {
+  console.log(`Took ${duration} to keep promise.`)
 })
 ```
 

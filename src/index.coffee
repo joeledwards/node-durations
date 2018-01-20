@@ -12,4 +12,5 @@ module.exports =
   stopwatch: stopwatch.new
   time: timing.time
   timeAsync: timing.timeAsync
+  timePromised: timing.timePromised
 

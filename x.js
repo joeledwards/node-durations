@@ -1,4 +1,10 @@
-const {duration, stopwatch, time: timeSync, timeAsync} = require('./lib/index')
+const {
+  duration,
+  stopwatch,
+  time: timeSync,
+  timeAsync,
+  timePromised
+} = require('./lib/index')
 
 const nanoseconds = 987654321
 console.log("Duration is", duration(nanoseconds).format())
@@ -43,3 +49,17 @@ const someOtherFunction = next => {
 timeAsync(someOtherFunction, duration => {
   console.log(`Took ${duration} to do something else.`)
 })
+
+// Promised work
+const somePromisedOp = () => {
+  return new Promise((resolve) => {
+    someFunction()
+    resolve()
+  })
+}
+
+timePromised(somePromisedOp)
+.then(duration => {
+  console.log(`Took ${duration} to keep promise.`)
+})
+
