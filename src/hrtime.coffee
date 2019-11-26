@@ -9,7 +9,7 @@ hrtime = (prevTime) ->
   seconds = Math.floor clockTime
   ns = Math.floor((clockTime % 1) * 1e9)
 
-  if prevTimestamp
+  if prevTime
     seconds = seconds - prevTime[0]
     ns = ns - prevTime[1]
     if ns < 0
